@@ -15,45 +15,64 @@
       background: radial-gradient(circle at center, #222, #0a0a0a);
     }
     .lobby-box {
-      background: #181818; padding: 34px; border-radius: 16px; width: 400px;
+      background: #181818; padding: 34px; border-radius: 16px; width: 420px;
       text-align: center; box-shadow: 0 12px 35px rgba(0,0,0,0.8);
       border: 1px solid #2c2c2c;
     }
-    .lobby-box input, .lobby-box button {
-      width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: none; font-size: 15px;
+    .lobby-box input {
+      width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px;
+      background: #0f0f0f; color: #fff; border: 1px solid #333; text-align: center; font-size: 16px;
     }
-    .lobby-box input { background: #0f0f0f; color: #fff; border: 1px solid #333; text-align: center; }
-    .lobby-box button { background: #ff0000; color: #fff; font-weight: bold; cursor: pointer; margin-top: 14px; }
-    .lobby-box button:hover { background: #cc0000; }
+    .mode-btns { display: flex; gap: 10px; margin-top: 12px; }
+    .mode-btns button {
+      flex: 1; padding: 13px; border-radius: 10px; border: none; font-size: 15px;
+      font-weight: bold; cursor: pointer; transition: transform 0.1s;
+    }
+    .btn-create { background: #ff0000; color: #fff; }
+    .btn-create:hover { background: #cc0000; }
+    .btn-join-mode { background: #272727; color: #fff; border: 1px solid #444 !important; }
+    .btn-join-mode:hover { background: #333; }
+    #join-area { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid #2c2c2c; }
+    .btn-enter {
+      width: 100%; padding: 12px; border-radius: 10px; border: none;
+      background: #3ea6ff; color: #0f0f0f; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 6px;
+    }
 
     #app { display: none; }
     header {
-      position: fixed; top: 0; left: 0; right: 0; height: 56px;
+      position: fixed; top: 0; left: 0; right: 0; height: 64px;
       background: rgba(15, 15, 15, 0.96); border-bottom: 1px solid #272727;
       display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100;
     }
-    .logo { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 18px; }
-    .logo-icon { background: #ff0000; color: #fff; padding: 2px 8px; border-radius: 6px; font-size: 13px; }
-    .search-box { display: flex; width: 40%; max-width: 460px; }
+    .header-left { display: flex; align-items: center; gap: 12px; width: 32%; }
+    .logo { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 17px; white-space: nowrap; }
+    .logo-icon { background: #ff0000; color: #fff; padding: 2px 7px; border-radius: 6px; font-size: 12px; }
+    .search-box { display: flex; flex: 1; }
     .search-box input {
-      width: 100%; padding: 8px 14px; border-radius: 20px 0 0 20px;
-      border: 1px solid #303030; background: #121212; color: #fff; outline: none;
+      width: 100%; padding: 7px 12px; border-radius: 20px 0 0 20px;
+      border: 1px solid #303030; background: #121212; color: #fff; outline: none; font-size: 13px;
     }
     .search-box button {
-      padding: 8px 18px; border-radius: 0 20px 20px 0; border: 1px solid #303030;
+      padding: 7px 14px; border-radius: 0 20px 20px 0; border: 1px solid #303030;
       border-left: none; background: #222; color: #fff; cursor: pointer;
     }
-    .room-status { display: flex; align-items: center; gap: 10px; font-size: 13px; }
-    .badge { padding: 4px 10px; border-radius: 12px; font-weight: bold; }
+    .header-center {
+      text-align: center; flex: 1;
+    }
+    .room-code-big {
+      font-size: 22px; font-weight: bold; color: #ffdd59; letter-spacing: 2px;
+    }
+    .header-right { display: flex; align-items: center; justify-content: flex-end; gap: 10px; width: 32%; }
+    .badge { padding: 4px 10px; border-radius: 12px; font-weight: bold; font-size: 12px; }
     .host-badge { background: #f1c40f; color: #111; }
     .guest-badge { background: #272727; color: #aaa; }
     .leave-btn {
-      background: #272727; color: #ff5e57; border: none; padding: 6px 14px;
-      border-radius: 8px; cursor: pointer; font-weight: bold;
+      background: #272727; color: #ff5e57; border: none; padding: 7px 14px;
+      border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px;
     }
     .leave-btn:hover { background: #382020; }
     .main-layout {
-      display: flex; margin-top: 56px; height: calc(100vh - 56px);
+      display: flex; margin-top: 64px; height: calc(100vh - 64px);
     }
     .left-area { flex: 1; padding: 20px; overflow-y: auto; }
     .player-wrapper {
@@ -86,15 +105,15 @@
     }
     .members-box {
       padding: 12px 14px; border-bottom: 1px solid #272727; background: #191919;
-      max-height: 160px; overflow-y: auto;
+      max-height: 190px; overflow-y: auto;
     }
     .member-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 4px 0; font-size: 13px;
+      padding: 5px 0; font-size: 13px; border-bottom: 1px solid #222;
     }
     .kick-btn {
-      background: #eb3b5a; color: #fff; border: none; padding: 2px 8px;
-      border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold;
+      background: #eb3b5a; color: #fff; border: none; padding: 3px 10px;
+      border-radius: 5px; font-size: 11px; cursor: pointer; font-weight: bold;
     }
     .kick-btn:hover { background: #c0392b; }
 
@@ -112,31 +131,59 @@
       background: #3ea6ff; color: #0f0f0f; border: none; padding: 8px 16px;
       border-radius: 16px; font-weight: bold; cursor: pointer;
     }
+
+    /* 追放・部屋削除の通知モーダル */
+    #notice-modal {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.88); z-index: 999; align-items: center; justify-content: center;
+    }
+    .notice-card {
+      background: #1e1e1e; padding: 30px; border-radius: 16px; width: 380px;
+      text-align: center; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+    }
+    .notice-card button {
+      margin-top: 18px; padding: 10px 32px; border-radius: 10px; border: none;
+      background: #ff0000; color: #fff; font-size: 15px; font-weight: bold; cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="lobby">
     <div class="lobby-box">
       <div style="font-size: 26px; font-weight: bold; margin-bottom: 6px;">▶ YouTube WatchParty</div>
-      <p style="font-size: 13px; color: #aaa; margin-bottom: 18px;">部屋を作った人が管理者になります</p>
-      <input type="text" id="name-input" placeholder="あなたのニックネームを入力">
-      <input type="text" id="room-input" placeholder="部屋番号 (例: 1234)" value="1234">
-      <button id="join-btn" onclick="enterRoom()">部屋に入る</button>
+      <p style="font-size: 13px; color: #aaa; margin-bottom: 16px;">ニックネームを入力して部屋を作るか入ってください</p>
+      <input type="text" id="name-input" placeholder="あなたのニックネーム (例: OOKA)">
+      
+      <div class="mode-btns">
+        <button class="btn-create" onclick="handleCreateRoom()">＋ 部屋を作る</button>
+        <button class="btn-join-mode" onclick="showJoinInput()">部屋に入る</button>
+      </div>
+
+      <div id="join-area">
+        <input type="text" id="room-input" placeholder="5文字の部屋番号を入力" maxlength="5" style="text-transform: uppercase;">
+        <button class="btn-enter" onclick="handleJoinRoom()">この部屋に入る</button>
+      </div>
+      <div id="lobby-status" style="margin-top: 12px; font-size: 13px; color: #ffdd59;"></div>
     </div>
   </div>
 
   <div id="app">
     <header>
-      <div class="logo">
-        <span class="logo-icon">▶</span> WatchParty <span id="room-label" style="color:#aaa;font-size:13px;"></span>
+      <div class="header-left">
+        <div class="logo"><span class="logo-icon">▶</span> WatchParty</div>
+        <div class="search-box" id="host-search-box">
+          <input type="text" id="search-input" placeholder="YouTubeを検索..." onkeydown="if(event.key==='Enter') doSearch()">
+          <button onclick="doSearch()">🔍</button>
+        </div>
       </div>
-      <div class="search-box" id="host-search-box">
-        <input type="text" id="search-input" placeholder="管理者がYouTubeを検索..." onkeydown="if(event.key==='Enter') doSearch()">
-        <button onclick="doSearch()">🔍</button>
+
+      <div class="header-center">
+        <div class="room-code-big">部屋番号：<span id="header-room-id">-----</span></div>
       </div>
-      <div class="room-status">
+
+      <div class="header-right">
         <span id="role-badge" class="badge">接続中...</span>
-        <button class="leave-btn" onclick="leaveRoom(false)">退出</button>
+        <button class="leave-btn" onclick="leaveRoom()">退出</button>
       </div>
     </header>
 
@@ -156,7 +203,9 @@
 
       <div class="right-sidebar">
         <div class="members-box">
-          <div style="font-size: 12px; color: #aaa; margin-bottom: 6px; font-weight: bold;">👥 参加メンバー (<span id="member-count">1</span>人)</div>
+          <div style="font-size: 13px; color: #ffdd59; margin-bottom: 6px; font-weight: bold;">
+            👥 参加人数：<span id="member-count">1</span>人
+          </div>
           <div id="member-list"></div>
         </div>
         <div class="chat-header">💬 チャット</div>
@@ -168,9 +217,24 @@
       </div>
     </div>
   </div>
+
+  <div id="notice-modal">
+    <div class="notice-card">
+      <div id="notice-text" style="font-size: 17px; font-weight: bold; line-height: 1.5;"></div>
+      <button onclick="closeNoticeAndReset()">完了</button>
+    </div>
+  </div>
   <script>
-    const GAS_URL = 'https://google.com';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwIjg6G8T0fWfBet8wS34u6_8Wb01nyX5lDOhB791sJjwWcqHsPysSCjHif7iQl-nlb/exec';
     const myId = 'U_' + Math.random().toString(36).substr(2, 6);
+
+    // 追放後も同じブラウザから再入室できないよう端末IDを保存
+    let deviceId = localStorage.getItem('wp_device_id');
+    if (!deviceId) {
+      deviceId = 'DEV_' + Math.random().toString(36).substr(2, 10);
+      localStorage.setItem('wp_device_id', deviceId);
+    }
+
     let roomId = '', myName = '', isJoined = false, isHost = false;
     let currentPlayingId = null, renderedChats = new Set();
 
@@ -199,20 +263,69 @@
       });
     }
 
-    function enterRoom() {
+    function showJoinInput() {
+      document.getElementById('join-area').style.display = 'block';
+    }
+
+    // 「部屋を作る」➔ 英数字5文字の部屋番号を自動発行して管理者として入室
+    function handleCreateRoom() {
       const nameVal = document.getElementById('name-input').value.trim();
       if (!nameVal) {
-        alert('入室する前にニックネームを入力してください！');
+        alert('先にニックネームを入力してください！');
         return;
       }
       myName = nameVal;
-      roomId = document.getElementById('room-input').value.trim() || '1234';
-      document.getElementById('room-label').innerText = '[部屋: ' + roomId + ']';
-      document.getElementById('lobby').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
+      document.getElementById('lobby-status').innerText = '部屋を作成中...';
+
+      callGasJsonp({ cmd: 'create', userId: myId, userName: myName, deviceId: deviceId })
+        .then(function(res) {
+          document.getElementById('lobby-status').innerText = '';
+          if (res.status === 'ok') {
+            startRoomSession(res.roomId, true);
+          } else {
+            alert('部屋の作成に失敗しました。もう一度お試しください。');
+          }
+        });
+    }
+
+    // 「部屋に入る」➔ 入力された5文字の部屋番号へ一般人として入室
+    function handleJoinRoom() {
+      const nameVal = document.getElementById('name-input').value.trim();
+      const codeVal = document.getElementById('room-input').value.trim().toUpperCase();
+      if (!nameVal) {
+        alert('先にニックネームを入力してください！');
+        return;
+      }
+      if (codeVal.length !== 5) {
+        alert('5文字の部屋番号を入力してください！');
+        return;
+      }
+      myName = nameVal;
+      document.getElementById('lobby-status').innerText = '部屋に接続中...';
+
+      callGasJsonp({ cmd: 'join', roomId: codeVal, userId: myId, userName: myName, deviceId: deviceId })
+        .then(function(res) {
+          document.getElementById('lobby-status').innerText = '';
+          if (res.status === 'ok') {
+            startRoomSession(res.roomId, false);
+          } else if (res.status === 'banned') {
+            showNoticeModal('この部屋から追放されているため、二度と入室できません。');
+          } else {
+            alert('その部屋番号は存在しないか、すでに削除されています。');
+          }
+        });
+    }
+
+    function startRoomSession(code, hostMode) {
+      roomId = code;
+      isHost = hostMode;
       isJoined = true;
       currentPlayingId = null;
       renderedChats.clear();
+
+      document.getElementById('header-room-id').innerText = roomId;
+      document.getElementById('lobby').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
       document.getElementById('chat-list').innerHTML = '';
 
       const box = document.getElementById('player-box');
@@ -222,22 +335,35 @@
       waitDiv.innerText = '🔍 管理者が検索中（動画を選ぶまでお待ちください）...';
       box.appendChild(waitDiv);
 
-      doSearch('人気 急上昇 日本');
+      if (isHost) {
+        doSearch('人気 急上昇 日本');
+      }
       syncLoop();
     }
 
-    function leaveRoom(wasKicked) {
+    function leaveRoom() {
+      if (!isJoined) return;
       isJoined = false;
+      callGasJsonp({
+        cmd: 'sync', roomId: roomId, userId: myId, userName: myName, deviceId: deviceId,
+        action: JSON.stringify({ type: 'leave' })
+      });
+      closeNoticeAndReset();
+    }
+
+    function showNoticeModal(msg) {
+      isJoined = false;
+      document.getElementById('player-box').innerHTML = '';
+      document.getElementById('notice-text').innerText = msg;
+      document.getElementById('notice-modal').style.display = 'flex';
+    }
+
+    function closeNoticeAndReset() {
+      document.getElementById('notice-modal').style.display = 'none';
       document.getElementById('player-box').innerHTML = '';
       document.getElementById('app').style.display = 'none';
       document.getElementById('lobby').style.display = 'flex';
-      if (wasKicked) {
-        alert('管理者によって部屋から追放されました。');
-      } else {
-        callGasJsonp({ cmd: 'sync', roomId: roomId, userId: myId, userName: myName, action: JSON.stringify({ type: 'leave' }) });
-      }
     }
-
     function doSearch(defaultWord) {
       const q = defaultWord || document.getElementById('search-input').value.trim();
       const grid = document.getElementById('video-grid');
@@ -265,12 +391,16 @@
         });
       });
     }
+
     function selectVideoForRoom(v) {
       if (!isHost) return;
       const ok = confirm('「' + v.title + '」\n\nその動画を挿入します。よろしいですか？');
       if (ok) {
         applyVideo(v);
-        callGasJsonp({ cmd: 'sync', roomId: roomId, userId: myId, userName: myName, action: JSON.stringify({ type: 'setVideo', video: v }) });
+        callGasJsonp({
+          cmd: 'sync', roomId: roomId, userId: myId, userName: myName, deviceId: deviceId,
+          action: JSON.stringify({ type: 'setVideo', video: v })
+        });
       }
     }
 
@@ -297,8 +427,11 @@
 
     function kickUser(targetId, targetName) {
       if (!isHost) return;
-      if (confirm(targetName + ' さんを部屋から追放しますか？')) {
-        callGasJsonp({ cmd: 'sync', roomId: roomId, userId: myId, userName: myName, action: JSON.stringify({ type: 'kick', targetId: targetId }) });
+      if (confirm(targetName + ' さんをこの部屋から永久追放しますか？')) {
+        callGasJsonp({
+          cmd: 'sync', roomId: roomId, userId: myId, userName: myName, deviceId: deviceId,
+          action: JSON.stringify({ type: 'kick', targetId: targetId })
+        });
       }
     }
 
@@ -311,7 +444,10 @@
       const nowTime = new Date().toTimeString().slice(0, 5);
       appendChatDOM(myName, isHost, text, nowTime);
 
-      callGasJsonp({ cmd: 'sync', roomId: roomId, userId: myId, userName: myName, action: JSON.stringify({ type: 'chat', text: text }) });
+      callGasJsonp({
+        cmd: 'sync', roomId: roomId, userId: myId, userName: myName, deviceId: deviceId,
+        action: JSON.stringify({ type: 'chat', text: text })
+      });
     }
 
     function appendChatDOM(user, hostFlag, text, time) {
@@ -339,12 +475,16 @@
     function syncLoop() {
       if (!isJoined) return;
 
-      callGasJsonp({ cmd: 'sync', roomId: roomId, userId: myId, userName: myName })
+      callGasJsonp({ cmd: 'sync', roomId: roomId, userId: myId, userName: myName, deviceId: deviceId })
         .then(function(res) {
           if (!isJoined) return;
 
-          if (res.status === 'kicked') {
-            leaveRoom(true);
+          if (res.status === 'banned') {
+            showNoticeModal('この部屋から追放されました');
+            return;
+          }
+          if (res.status === 'host_left') {
+            showNoticeModal('管理者がこの部屋を退出されたため、削除されました。');
             return;
           }
 
@@ -352,7 +492,7 @@
           isHost = (room.hostId === myId);
 
           const badge = document.getElementById('role-badge');
-          badge.innerText = isHost ? '👑 あなたが管理者' : '👀 視聴者 (管理者: ' + room.hostName + ')';
+          badge.innerText = isHost ? '👑 あなたが管理者' : '👀 一般視聴者';
           badge.className = 'badge ' + (isHost ? 'host-badge' : 'guest-badge');
 
           document.getElementById('host-search-box').style.visibility = isHost ? 'visible' : 'hidden';
