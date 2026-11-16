@@ -56,12 +56,8 @@
       padding: 7px 14px; border-radius: 0 20px 20px 0; border: 1px solid #303030;
       border-left: none; background: #222; color: #fff; cursor: pointer;
     }
-    .header-center {
-      text-align: center; flex: 1;
-    }
-    .room-code-big {
-      font-size: 22px; font-weight: bold; color: #ffdd59; letter-spacing: 2px;
-    }
+    .header-center { text-align: center; flex: 1; }
+    .room-code-big { font-size: 22px; font-weight: bold; color: #ffdd59; letter-spacing: 2px; }
     .header-right { display: flex; align-items: center; justify-content: flex-end; gap: 10px; width: 32%; }
     .badge { padding: 4px 10px; border-radius: 12px; font-weight: bold; font-size: 12px; }
     .host-badge { background: #f1c40f; color: #111; }
@@ -132,7 +128,6 @@
       border-radius: 16px; font-weight: bold; cursor: pointer;
     }
 
-    /* 追放・部屋削除の通知モーダル */
     #notice-modal {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.88); z-index: 999; align-items: center; justify-content: center;
@@ -192,8 +187,13 @@
         <div class="player-wrapper" id="player-box">
           <div class="waiting-msg" id="status-screen">🔍 管理者が検索中（動画を選ぶまでお待ちください）...</div>
         </div>
-        <h2 id="now-title" style="margin: 12px 0 4px 0; font-size: 18px;">待機中</h2>
-        <p id="now-channel" style="margin: 0; font-size: 13px; color: #aaa;"></p>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+          <div>
+            <h2 id="now-title" style="margin: 0 0 4px 0; font-size: 18px;">待機中</h2>
+            <p id="now-channel" style="margin: 0; font-size: 13px; color: #aaa;"></p>
+          </div>
+          <a id="fallback-yt-link" href="#" target="_blank" style="display:none; background:#272727; color:#ffdd59; text-decoration:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:bold;">▶ 再生されない場合はYouTubeで直接開く</a>
+        </div>
 
         <div id="host-controls">
           <h3 style="margin: 22px 0 6px 0; font-size: 15px; color: #ffdd59;">👑 管理者メニュー：クリックで部屋に動画を挿入</h3>
@@ -225,10 +225,9 @@
     </div>
   </div>
   <script>
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwIjg6G8T0fWfBet8wS34u6_8Wb01nyX5lDOhB791sJjwWcqHsPysSCjHif7iQl-nlb/exec';
+    const GAS_URL = 'https://google.com';
     const myId = 'U_' + Math.random().toString(36).substr(2, 6);
 
-    // 追放後も同じブラウザから再入室できないよう端末IDを保存
     let deviceId = localStorage.getItem('wp_device_id');
     if (!deviceId) {
       deviceId = 'DEV_' + Math.random().toString(36).substr(2, 10);
@@ -267,7 +266,6 @@
       document.getElementById('join-area').style.display = 'block';
     }
 
-    // 「部屋を作る」➔ 英数字5文字の部屋番号を自動発行して管理者として入室
     function handleCreateRoom() {
       const nameVal = document.getElementById('name-input').value.trim();
       if (!nameVal) {
@@ -288,7 +286,6 @@
         });
     }
 
-    // 「部屋に入る」➔ 入力された5文字の部屋番号へ一般人として入室
     function handleJoinRoom() {
       const nameVal = document.getElementById('name-input').value.trim();
       const codeVal = document.getElementById('room-input').value.trim().toUpperCase();
@@ -327,6 +324,7 @@
       document.getElementById('lobby').style.display = 'none';
       document.getElementById('app').style.display = 'block';
       document.getElementById('chat-list').innerHTML = '';
+      document.getElementById('fallback-yt-link').style.display = 'none';
 
       const box = document.getElementById('player-box');
       box.innerHTML = '';
@@ -411,7 +409,13 @@
       document.getElementById('now-channel').innerText = v.channel;
 
       const s = String.fromCharCode(47);
-      const embedUrl = 'https:' + s + s + '://youtube.com' + s + 'embed' + s + v.videoId + '?autoplay=1&rel=0';
+      const origin = encodeURIComponent(window.location.origin);
+      const embedUrl = 'https:' + s + s + '://youtube.com' + s + 'embed' + s + v.videoId + '?autoplay=1&rel=0&playsinline=1&origin=' + origin;
+      const directUrl = 'https:' + s + s + '://youtube.com' + s + 'watch?v=' + v.videoId;
+
+      const fallback = document.getElementById('fallback-yt-link');
+      fallback.href = directUrl;
+      fallback.style.display = 'inline-block';
 
       const box = document.getElementById('player-box');
       box.innerHTML = '';
@@ -419,7 +423,7 @@
       const iframe = document.createElement('iframe');
       iframe.src = embedUrl;
       iframe.style.cssText = 'width:100%;height:100%;border:none;';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
       iframe.setAttribute('allowfullscreen', 'true');
 
       box.appendChild(iframe);
